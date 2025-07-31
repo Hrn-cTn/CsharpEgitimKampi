@@ -57,13 +57,56 @@ namespace _10_DatabaseCrud
             #endregion
 
             #region Ürün Listeme İşlemi 
-            SqlConnection connection = new SqlConnection("Data Source=DESKTOP-RQUP3NI\\SQLEXPRESS;initial Catalog=EgitimKampiDb;integrated security=true");
-            connection.Open();
-            SqlCommand command=new SqlCommand("Select * From TblProduct", connection); // Sorgumuzu yazdığımız yerdir
-            SqlDataAdapter adapter = new SqlDataAdapter(command);
-            // Sorgumuzu çalıştıran ve veriyi getiren yerdir
-            DataTable dataTable = new DataTable();
+            //SqlConnection connection = new SqlConnection("Data Source=DESKTOP-RQUP3NI\\SQLEXPRESS;initial Catalog=EgitimKampiDb;integrated security=true");
+            //connection.Open();
+            //SqlCommand command=new SqlCommand("Select * From TblProduct", connection); // Sorgumuzu yazdığımız yerdir
+            //SqlDataAdapter adapter = new SqlDataAdapter(command);
+            //// Sorgumuzu çalıştıran ve veriyi getiren yerdir
+            //DataTable dataTable = new DataTable();
+            //adapter.Fill(dataTable); // DataTable'a veriyi dolduruyoruz
+            //// DataTable'dan veriyi alıp listeye ekliyoruz
+            //foreach (DataRow row in dataTable.Rows)
+            //{ //Önce Satıra gidiyor Sonra satırdaki sutüunları yazıyor.
+            //    foreach (var item in row.ItemArray)
+            //    {
+            //        Console.Write(item.ToString()+" ");
+            //    }
+            //    Console.WriteLine();
+            //}
 
+            #endregion
+
+            #region Ürün Silme İşlemi
+            //Console.Write("Silmek istediğiniz ürünün Id'sini giriniz: ");
+            //int productId = int.Parse(Console.ReadLine());
+            //SqlConnection connection = new SqlConnection("Data Source=DESKTOP-RQUP3NI\\SQLEXPRESS;initial Catalog=EgitimKampiDb;integrated security=true");
+            //connection.Open();
+            //SqlCommand command = new SqlCommand("Delete From TblProduct Where ProductId=@productId",connection);
+            //command.Parameters.AddWithValue("@productId", productId);
+            //command.ExecuteNonQuery(); // Sorguyu çalıştırır ve etkilenen satır sayısını döner.
+            //connection.Close();
+            //Console.WriteLine("Silme İşlemi Yapıldı.!");
+            #endregion
+
+            #region Ürün Güncelleme İşlemi
+            Console.Write("Güncellemek istediğiniz ürünün Id'sini giriniz: ");
+            int productId = int.Parse(Console.ReadLine());
+
+            Console.Write("Güncellenecek Ürün Adı: ");
+            string productName=Console.ReadLine();
+
+            Console.Write("Güncellenecek Ürün Fiyatı: ");
+            decimal productPrice = decimal.Parse(Console.ReadLine());
+
+            SqlConnection connection = new SqlConnection ("Data Source=DESKTOP-RQUP3NI\\SQLEXPRESS;initial Catalog=EgitimKampiDb;integrated security=true");
+            connection.Open();
+            SqlCommand command=new SqlCommand("Update TblProduct Set ProductName=@productName,ProductPrice=@productPrice Where ProductId=@productId", connection);
+            command.Parameters.AddWithValue("@productName", productName);
+            command.Parameters.AddWithValue("@productPrice", productPrice);
+            command.Parameters.AddWithValue("@productId", productId);
+            command.ExecuteNonQuery();
+            connection.Close();
+            Console.WriteLine("Güncelleme Başarılı.!");
             #endregion
             Console.Read();
 
